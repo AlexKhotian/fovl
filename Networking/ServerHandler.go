@@ -16,6 +16,12 @@ type IServerHandler interface {
 type ServerHandler struct {
 }
 
+// ServerHanlderFactory creates and init new ServerHandler
+func ServerHanlderFactory() IServerHandler {
+	serverHandler := new(ServerHandler)
+	return serverHandler
+}
+
 // StartServer starts server
 func (handler *ServerHandler) StartServer() {
 
