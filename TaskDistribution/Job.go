@@ -2,7 +2,7 @@ package TaskDistribution
 
 // IJob Particular task to do
 type IJob interface {
-	PutTaskIn(newTask func())
+	PutTaskIn(newTask func(), channel chan bool)
 	AbortTask()
 	RunTask()
 	GetID() uint64
@@ -16,24 +16,34 @@ type Job struct {
 	_id          uint64
 }
 
+// JobFactory creates and init job
+func JobFactory() IJob {
+	job := new(Job)
+	job._id = 0
+	return job
+}
+
 // PutTaskIn stores task to value and wait what to do
-func (_job *Job) PutTaskIn(newTask func()) {
-	if _job._task != nil {
+func (_job *Job) PutTaskIn(newTask func(), channel chan bool) {
+	if _job._task == nil {
 		_job._task = newTask
+		_job._syncChannel = channel
 	}
 }
 
 // AbortTask ends current task
 func (_job *Job) AbortTask() {
 	if _job._syncChannel != nil {
-		_job._syncChannel <- false
+		_job._syncChannel <- true
 	}
 	_job._task = nil
 }
 
 // RunTask executes task as go routine
 func (_job *Job) RunTask() {
-	go _job._task()
+	if _job._task != nil {
+		go _job._task()
+	}
 }
 
 // GetID returns unique id of job
