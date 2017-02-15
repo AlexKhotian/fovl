@@ -13,7 +13,7 @@ const (
 	Image        FileType = 1
 	Literature   FileType = 2
 	Documents    FileType = 3
-	Video        FileType = 4
+	Media        FileType = 4
 	Presentation FileType = 5
 	SourceCode   FileType = 6
 )
@@ -26,32 +26,33 @@ type IParseFileEnding interface {
 // ParseFile parses file and return type based on prefix
 func ParseFile(filePath *string) FileType {
 	fileType := Undefined
-	if strings.HasPrefix(*filePath, ".png") || strings.HasPrefix(*filePath, ".bmp") ||
-		strings.HasPrefix(*filePath, ".gif") {
+	if strings.HasSuffix(*filePath, ".png") || strings.HasSuffix(*filePath, ".bmp") ||
+		strings.HasSuffix(*filePath, ".gif") {
 		fileType = Image
 	}
 
-	if strings.HasPrefix(*filePath, ".pptx") {
+	if strings.HasSuffix(*filePath, ".pptx") {
 		fileType = Presentation
 	}
 
-	if strings.HasPrefix(*filePath, ".pdf") {
+	if strings.HasSuffix(*filePath, ".pdf") {
 		fileType = Literature
 	}
 
-	if strings.HasPrefix(*filePath, ".vma") || strings.HasPrefix(*filePath, ".mp4") ||
-		strings.HasPrefix(*filePath, ".mpeg") {
-		fileType = Video
+	if strings.HasSuffix(*filePath, ".vma") || strings.HasSuffix(*filePath, ".mp4") ||
+		strings.HasSuffix(*filePath, ".mpeg") || strings.HasSuffix(*filePath, ".mp3") ||
+		strings.HasSuffix(*filePath, ".avi") {
+		fileType = Media
 	}
 
-	if strings.HasPrefix(*filePath, ".docx") || strings.HasPrefix(*filePath, ".doc") ||
-		strings.HasPrefix(*filePath, ".txt") {
+	if strings.HasSuffix(*filePath, ".docx") || strings.HasSuffix(*filePath, ".doc") ||
+		strings.HasSuffix(*filePath, ".txt") {
 		fileType = Documents
 	}
 
-	if strings.HasPrefix(*filePath, ".cpp") || strings.HasPrefix(*filePath, ".go") ||
-		strings.HasPrefix(*filePath, ".js") || strings.HasPrefix(*filePath, ".h") || strings.HasPrefix(*filePath, ".cs") ||
-		strings.HasPrefix(*filePath, ".java") || strings.HasPrefix(*filePath, ".py") {
+	if strings.HasSuffix(*filePath, ".cpp") || strings.HasSuffix(*filePath, ".go") ||
+		strings.HasSuffix(*filePath, ".js") || strings.HasSuffix(*filePath, ".h") || strings.HasSuffix(*filePath, ".cs") ||
+		strings.HasSuffix(*filePath, ".java") || strings.HasSuffix(*filePath, ".py") {
 		fileType = SourceCode
 	}
 

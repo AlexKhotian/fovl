@@ -48,11 +48,11 @@ func TestParseSourceCode(t *testing.T) {
 	}
 }
 
-func TestParseFilesVideo(t *testing.T) {
+func TestParseFilesMedia(t *testing.T) {
 	testString := "test.mp4"
 	fileType := MachineLearning.ParseFile(&testString)
-	if fileType != MachineLearning.Video {
-		t.Log("Failed to parse Video")
+	if fileType != MachineLearning.Media {
+		t.Log("Failed to parse Media")
 		t.Fail()
 	}
 }
