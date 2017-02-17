@@ -1,13 +1,17 @@
 package FileSession
 
 import (
+	"io"
+	"log"
 	"net"
+	"os"
+	"strings"
 )
 
 // IFileReceiver receiver file and folders from network.
 type IFileReceiver interface {
 	SetSavePath(filePath *string)
-	ReceiveFileFromConnection(conn net.Conn)
+	ReceiveFileFromConnection(conn *net.Conn)
 	saveFiles()
 }
 
@@ -28,8 +32,14 @@ func (receiver *fileReceiver) SetSavePath(filePath *string) {
 }
 
 // ReceiveFileFromConnection starts to receive file
-func (receiver *fileReceiver) ReceiveFileFromConnection(conn net.Conn) {
-
+func (receiver *fileReceiver) ReceiveFileFromConnection(conn *net.Conn) {
+	file, err := os.Open(strings.TrimSpace(receiver._filePath))
+	if err != nil {
+		log.Fatal("Failed to create file")
+	}
+	for err != nil && err != io.EOF {
+		bytes, err := io.Copy(file, *conn)
+	}
 }
 
 // saveFiles saves files to save path
