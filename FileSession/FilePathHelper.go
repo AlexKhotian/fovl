@@ -36,43 +36,43 @@ func CreateFilePathHelper() IFilePathHelper {
 }
 
 func (helper *filePathHelper) IsDirectory() bool {
-
+	return false
 }
 
 func (helper *filePathHelper) IsAbsolutePath() bool {
-
+	return false
 }
 
 func (helper *filePathHelper) IsRelativePath() bool {
-
+	return false
 }
 
 func (helper *filePathHelper) IsFilePathExists() bool {
-
+	return false
 }
 
 func (helper *filePathHelper) GetRelativePath() string {
-
+	return ""
 }
 
 func (helper *filePathHelper) GetAboslutePath() string {
-
+	return ""
 }
 
 func (helper *filePathHelper) GetParentName() string {
-
+	return ""
 }
 
 func (helper *filePathHelper) GetFileName() string {
-
+	return ""
 }
 
 func (helper *filePathHelper) GetParentAbsolutePath() string {
-
+	return ""
 }
 
 func (helper *filePathHelper) GetChildItems() *list.List {
-
+	return list.New()
 }
 
 func (helper *filePathHelper) AppendPathToExisting(additionalPath *string) {
