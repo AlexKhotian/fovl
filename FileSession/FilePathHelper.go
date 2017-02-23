@@ -2,6 +2,9 @@ package FileSession
 
 import (
 	"container/list"
+	"log"
+	"os"
+	"strings"
 )
 
 // IFilePathHelper stores a path, behaves as normal filepath
@@ -30,45 +33,58 @@ type filePathHelper struct {
 }
 
 //
-func CreateFilePathHelper() IFilePathHelper {
+func CreateFilePathHelper(filePath *string) IFilePathHelper {
 	this := new(filePathHelper)
+	this._filePathString = filePath
 	return this
 }
 
 func (helper *filePathHelper) IsDirectory() bool {
-	return false
+	file, err := os.Stat(*helper._filePathString)
+	if err != nil {
+		log.Fatal("Failed to create file")
+	}
+	return file.IsDir()
 }
 
 func (helper *filePathHelper) IsAbsolutePath() bool {
-	return false
+	return strings.HasPrefix(*helper._filePathString, "/")
 }
 
 func (helper *filePathHelper) IsRelativePath() bool {
-	return false
+	return !helper.IsAbsolutePath()
 }
 
 func (helper *filePathHelper) IsFilePathExists() bool {
-	return false
+	_, err := os.Stat(*helper._filePathString)
+	if err != nil {
+		return false
+	}
+	return true
 }
 
 func (helper *filePathHelper) GetRelativePath() string {
-	return ""
+	slittedPath := strings.Split(*helper._filePathString, "/")
+	return slittedPath[len(slittedPath)-1]
 }
 
 func (helper *filePathHelper) GetAboslutePath() string {
-	return ""
+	return *helper._filePathString
 }
 
 func (helper *filePathHelper) GetParentName() string {
-	return ""
+	slittedPath := strings.Split(*helper._filePathString, "/")
+	return slittedPath[len(slittedPath)-2]
 }
 
 func (helper *filePathHelper) GetFileName() string {
-	return ""
+	slittedPath := strings.Split(*helper._filePathString, "/")
+	return slittedPath[len(slittedPath)-1]
 }
 
 func (helper *filePathHelper) GetParentAbsolutePath() string {
-	return ""
+	index := strings.LastIndex(*helper._filePathString, "/")
+	return strings.Join(strings.Fields(*helper._filePathString)[0:index], "")
 }
 
 func (helper *filePathHelper) GetChildItems() *list.List {
@@ -76,5 +92,5 @@ func (helper *filePathHelper) GetChildItems() *list.List {
 }
 
 func (helper *filePathHelper) AppendPathToExisting(additionalPath *string) {
-
+	//helper._filePathString = append(strings.Fields(*helper._filePathString), *additionalPath)
 }
