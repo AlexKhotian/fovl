@@ -5,11 +5,13 @@ type SessionCommandType uint32
 
 // Type of session command
 const (
-	StartConnection SessionCommandType = 0
-	StopConnection  SessionCommandType = 1
+	StartConnectionRequest  SessionCommandType = 0
+	StartConnectionResponse SessionCommandType = 1
+	StopConnection          SessionCommandType = 2
 )
 
 // JSON struct
 type SessionCommand struct {
-	CommandType SessionCommandType
+	CommandType SessionCommandType `json:"_commandType"`
+	TCPPort     uint64             `json:"_tcpPort"`
 }

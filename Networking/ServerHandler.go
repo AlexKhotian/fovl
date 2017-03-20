@@ -1,6 +1,7 @@
 package Networking
 
 import (
+	"encoding/json"
 	"log"
 	"net"
 )
@@ -31,7 +32,7 @@ func ServerHanlderFactory() IServerHandler {
 
 // StartServer starts server
 func (handler *ServerHandler) StartServer() {
-	listener, listenErr := net.Listen("tcp", ":9000")
+	listener, listenErr := net.Listen("udp", ":9000")
 	if listenErr != nil {
 		log.Fatal(listenErr)
 	}
@@ -50,13 +51,20 @@ func (handler *ServerHandler) StartServer() {
 
 // Run creates socket, listen for incoming connections
 func (handler *ServerHandler) Run() {
-
+	handler.StartServer()
 }
 
 // HandleNewConnection creates new thread for file transfer session
 func (handler *ServerHandler) HandleNewConnection(conn *net.Conn) {
 	log.Println("New incoming connection")
-
+	var initData []byte
+	(*conn).Read(initData)
+	var cmd SessionCommand
+	json.Unmarshal(initData, &cmd)
+	if cmd.CommandType == StartConnectionRequest {
+		// TODO(Khotian): Create repsonse with unique port id.
+		// Spawn listener on this port.
+	}
 }
 
 // ShutdownServer turn off server and clean up all threads
