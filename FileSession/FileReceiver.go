@@ -22,16 +22,18 @@ type fileReceiver struct {
 	_listener          net.Listener
 	_connection        net.Conn
 	_transmissionEnded chan bool
+	_port              uint32
 }
 
 // IFileReceiverFactory creates instance of receiver
-func IFileReceiverFactory() IFileReceiver {
+func IFileReceiverFactory(port uint32) IFileReceiver {
 	fileReceiver := new(fileReceiver)
+	fileReceiver._port = port
 	return fileReceiver
 }
 
 func (receiver *fileReceiver) initFileReceiver() bool {
-	listener, err := net.Listen("tcp", "localhost:27111")
+	listener, err := net.Listen("tcp", "localhost:"+string(receiver._port))
 	if err != nil {
 		log.Fatal(err)
 		return false

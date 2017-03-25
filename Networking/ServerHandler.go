@@ -20,13 +20,15 @@ type IServerHandler interface {
 
 // ServerHandler implementation for IServerHandler
 type ServerHandler struct {
-	_running bool
+	_running  bool
+	_portPool IPortPool
 }
 
 // ServerHanlderFactory creates and init new ServerHandler
 func ServerHanlderFactory() IServerHandler {
 	serverHandler := new(ServerHandler)
 	serverHandler._running = true
+	serverHandler._portPool = PortPoolFactory()
 	return serverHandler
 }
 
@@ -62,8 +64,12 @@ func (handler *ServerHandler) HandleNewConnection(conn *net.Conn) {
 	var cmd SessionCommand
 	json.Unmarshal(initData, &cmd)
 	if cmd.CommandType == StartConnectionRequest {
-		// TODO(Khotian): Create repsonse with unique port id.
-		// Spawn listener on this port.
+		fileTransferSessionPort := handler._portPool.GetNewPortID()
+		response := &SessionCommand{
+			CommandType: StartConnectionResponse,
+			TCPPort:     fileTransferSessionPort}
+		jsonResponse, _ := json.Marshal(response)
+		(*conn).Write(jsonResponse)
 	}
 }
 

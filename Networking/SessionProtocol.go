@@ -13,5 +13,5 @@ const (
 // JSON struct
 type SessionCommand struct {
 	CommandType SessionCommandType `json:"_commandType"`
-	TCPPort     uint64             `json:"_tcpPort"`
+	TCPPort     uint32             `json:"_tcpPort"`
 }
