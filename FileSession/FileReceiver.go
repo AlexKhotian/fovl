@@ -13,7 +13,7 @@ type IFileReceiver interface {
 	SetSavePath(filePath *string)
 	ReceiveFileFromConnection(conn *net.Conn)
 
-	initFileReceiver() bool
+	StartFileReceiver() bool
 }
 
 // fileReceiver implements interface and perfomr save
@@ -32,7 +32,7 @@ func IFileReceiverFactory(port uint32) IFileReceiver {
 	return fileReceiver
 }
 
-func (receiver *fileReceiver) initFileReceiver() bool {
+func (receiver *fileReceiver) StartFileReceiver() bool {
 	listener, err := net.Listen("tcp", "localhost:"+string(receiver._port))
 	if err != nil {
 		log.Fatal(err)

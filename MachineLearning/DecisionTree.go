@@ -11,5 +11,6 @@ type DecisionTree struct {
 
 // DecideWhereToStoreData decides where to store data base on type/namespace
 func (instance *DecisionTree) DecideWhereToStoreData(filename *string) string {
+	ParseFile(filename)
 	return ""
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net"
+	"smart_file_transport/FileSession"
 )
 
 // IServerHandler interface for server handler functionality
@@ -70,6 +71,10 @@ func (handler *ServerHandler) HandleNewConnection(conn *net.Conn) {
 			TCPPort:     fileTransferSessionPort}
 		jsonResponse, _ := json.Marshal(response)
 		(*conn).Write(jsonResponse)
+		go func() {
+			newFileTransferSession := FileSession.IFileReceiverFactory(fileTransferSessionPort)
+			newFileTransferSession.StartFileReceiver()
+		}()
 	}
 }
 
