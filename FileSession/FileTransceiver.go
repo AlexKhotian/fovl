@@ -4,6 +4,6 @@ package FileSession
 type IFileTransceiver interface {
 }
 
-// FileTranceiver impl
-type FileTransceiver struct {
+// fileTranceiver impl
+type fileTransceiver struct {
 }
