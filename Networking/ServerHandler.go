@@ -55,6 +55,7 @@ func (handler *ServerHandler) StartServer() {
 // Run creates socket, listen for incoming connections
 func (handler *ServerHandler) Run() {
 	handler.StartServer()
+	go FileSession.CheckDefaultSubFileSystem()
 }
 
 // HandleNewConnection creates new thread for file transfer session

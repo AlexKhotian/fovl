@@ -12,23 +12,8 @@ const photoDir = "Photo"
 const docsDir = "Docs"
 const codeDir = "SourceCode"
 
-// IDefaultFileSystemBuilder searcher for files in directory
-type IDefaultFileSystemBuilder interface {
-	LoadDefaultSubFileSystem()
-	createDefaultFileSystem(userHomeDir string)
-}
-
-type defaultFileSystemBuilder struct {
-}
-
-// IDefaultFileSystemBuilderFactory creates and inits
-// an instance of IDefaultFileSystemBuilder
-func IDefaultFileSystemBuilderFactory() IDefaultFileSystemBuilder {
-	defaultFileSystemBuilderInstance := new(defaultFileSystemBuilder)
-	return defaultFileSystemBuilderInstance
-}
-
-func (instance *defaultFileSystemBuilder) LoadDefaultSubFileSystem() {
+// CheckDefaultSubFileSystem check if SmartFileTransport file system was initialized
+func CheckDefaultSubFileSystem() {
 	if _, err := os.Stat(rootFileDir); os.IsNotExist(err) {
 		usrToken, err := user.Current()
 		if err != nil {
@@ -45,7 +30,7 @@ func (instance *defaultFileSystemBuilder) LoadDefaultSubFileSystem() {
 	}
 }
 
-func (instance *defaultFileSystemBuilder) createDefaultFileSystem(userHomeDir string) {
+func createDefaultFileSystem(userHomeDir string) {
 	if _, err := os.Create(mediaDir); err != nil {
 		log.Fatal("Failed to create Media folder")
 	}
