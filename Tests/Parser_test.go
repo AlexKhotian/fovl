@@ -1,7 +1,7 @@
 package Tests
 
 import "testing"
-import "smart_file_transport/MachineLearning"
+import "fovl/MachineLearning"
 
 func TestParsePresentation(t *testing.T) {
 	testString := "test.pptx"

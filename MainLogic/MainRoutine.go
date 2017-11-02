@@ -1,7 +1,10 @@
 package main
 
+import "fovl/CLI"
 import "fmt"
 
 func main() {
-	fmt.Printf("Hello, world.\n")
+	parser := CLI.CreateArgumentParser()
+	res, _ := parser.Parse()
+	fmt.Println(res)
 }

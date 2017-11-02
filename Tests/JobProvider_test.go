@@ -1,8 +1,8 @@
 package Tests
 
 import "testing"
-import JobProvider "smart_file_transport/TaskDistribution"
-import Job "smart_file_transport/TaskDistribution"
+import JobProvider "fovl/TaskDistribution"
+import Job "fovl/TaskDistribution"
 
 func TestCreateJobProvider(t *testing.T) {
 	jobProvider := JobProvider.JobProviderFactory()

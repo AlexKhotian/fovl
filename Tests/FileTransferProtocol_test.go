@@ -2,7 +2,7 @@ package Tests
 
 import (
 	"encoding/json"
-	"smart_file_transport/FileSession"
+	"fovl/FileSession"
 	"testing"
 )
 

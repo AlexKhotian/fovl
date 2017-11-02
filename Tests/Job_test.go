@@ -1,7 +1,7 @@
 package Tests
 
 import "testing"
-import "smart_file_transport/TaskDistribution"
+import "fovl/TaskDistribution"
 import "fmt"
 
 func TestCreateJob(t *testing.T) {

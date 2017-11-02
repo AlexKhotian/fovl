@@ -1,7 +1,7 @@
 package Tests
 
 import (
-	"smart_file_transport/FileSession"
+	"fovl/FileSession"
 	"testing"
 )
 

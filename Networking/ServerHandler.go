@@ -2,9 +2,9 @@ package Networking
 
 import (
 	"encoding/json"
+	"fovl/FileSession"
 	"log"
 	"net"
-	"smart_file_transport/FileSession"
 )
 
 // IServerHandler interface for server handler functionality

@@ -1,7 +1,7 @@
 package Tests
 
 import (
-	"smart_file_transport/Networking"
+	"fovl/Networking"
 	"testing"
 )
 
