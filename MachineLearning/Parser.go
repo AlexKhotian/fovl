@@ -1,6 +1,7 @@
 package MachineLearning
 
 import (
+	"log"
 	"strings"
 )
 
@@ -54,6 +55,11 @@ func ParseFile(filePath *string) FileType {
 		strings.HasSuffix(*filePath, ".js") || strings.HasSuffix(*filePath, ".h") || strings.HasSuffix(*filePath, ".cs") ||
 		strings.HasSuffix(*filePath, ".java") || strings.HasSuffix(*filePath, ".py") {
 		fileType = SourceCode
+	}
+
+	if fileType == Undefined {
+		log.Println("ParseFile: Failed to obtain filetype for file: ", filePath)
+		fileType = Documents
 	}
 
 	return fileType

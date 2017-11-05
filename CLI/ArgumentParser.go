@@ -27,6 +27,7 @@ func CreateArgumentParser() ArgumentParser {
 
 func (parser *argumentParserImpl) Parse() (ArgumentsRepresentation, error) {
 	runType := flag.String("type", "server", "idecates if we are server / client")
+	// TODO: think of better default path XD
 	sendFolder := flag.String("sf", "/", "idecates what to send")
 	receiveFolder := flag.String("rf", "/", "idecates where to receive")
 
